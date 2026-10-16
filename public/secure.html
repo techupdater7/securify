@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram - Securing Your Account</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #262626;
+    }
+
+    .container {
+      background: #fff;
+      border: 1px solid #dbdbdb;
+      border-radius: 8px;
+      padding: 50px 40px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .logo {
+      width: 175px;
+      margin-bottom: 30px;
+    }
+
+    .shield {
+      font-size: 60px;
+      margin-bottom: 20px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #8e8e8e;
+      margin-bottom: 30px;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      background: #efefef;
+      border-radius: 10px;
+      height: 6px;
+      width: 100%;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .steps li {
+      font-size: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #efefef;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #8e8e8e;
+      transition: color 0.3s;
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li.active {
+      color: #262626;
+    }
+
+    .steps li.done {
+      color: #4bb543;
+    }
+
+    .step-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid #dbdbdb;
+      border-top-color: #262626;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .checkmark {
+      color: #4bb543;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #dbdbdb;
+      border-radius: 50%;
+    }
+
+    /* Completion state */
+    .completion {
+      display: none;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .completion.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .success-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #4bb543;
+      margin-bottom: 8px;
+    }
+
+    .success-text {
+      font-size: 14px;
+      color: #8e8e8e;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .open-btn {
+      display: inline-block;
+      background: #0095f6;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 50px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .open-btn:hover {
+      background: #1877f2;
+    }
+
+    /* Hide securing content when done */
+    .securing {
+      transition: opacity 0.4s;
+    }
+
+    .securing.hide {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="assets/img/instagram.svg" alt="Instagram">
+
+    <!-- Securing Phase -->
+    <div class="securing" id="securingPhase">
+      <div class="shield">🛡️</div>
+      <h1 class="title">Securing Your Account</h1>
+      <p class="subtitle">Please wait while we protect your account...</p>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <ul class="steps" id="stepsList">
+        <li id="step-0">
+          <span class="step-icon"><span class="dot"></span></span>
+          Checking account activity...
+        </li>
+        <li id="step-1">
+          <span class="step-icon"><span class="dot"></span></span>
+          Verifying your identity...
+        </li>
+        <li id="step-2">
+          <span class="step-icon"><span class="dot"></span></span>
+          Scanning for suspicious logins...
+        </li>
+        <li id="step-3">
+          <span class="step-icon"><span class="dot"></span></span>
+          Applying security measures...
+        </li>
+        <li id="step-4">
+          <span class="step-icon"><span class="dot"></span></span>
+          Finalizing protection...
+        </li>
+      </ul>
+    </div>
+
+    <!-- Completion Phase -->
+    <div class="completion" id="completionPhase">
+      <div class="success-icon">✅</div>
+      <h1 class="success-title">Your Account Has Been Secured!</h1>
+      <p class="success-text">
+        We've successfully verified and secured your Instagram account.<br>
+        You can now continue using it safely.
+      </p>
+      <a href="https://www.instagram.com" class="open-btn">Open Instagram</a>
+    </div>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll("#stepsList li");
+    const progressBar = document.getElementById("progressBar");
+    const securingPhase = document.getElementById("securingPhase");
+    const completionPhase = document.getElementById("completionPhase");
+
+    const totalSteps = steps.length;
+    const stepDuration = 2000; // 2 seconds per step
+    let currentStep = 0;
+
+    function activateStep(index) {
+      if (index >= totalSteps) {
+        // All steps done — show completion
+        setTimeout(() => {
+          securingPhase.classList.add("hide");
+          setTimeout(() => {
+            completionPhase.classList.add("show");
+          }, 400);
+        }, 800);
+        return;
+      }
+
+      const li = steps[index];
+
+      // Mark as active with spinner
+      li.classList.add("active");
+      li.querySelector(".step-icon").innerHTML = '<span class="spinner"></span>';
+
+      // Update progress
+      const progress = ((index + 0.5) / totalSteps) * 100;
+      progressBar.style.width = progress + "%";
+
+      setTimeout(() => {
+        // Mark as done with checkmark
+        li.classList.remove("active");
+        li.classList.add("done");
+        li.querySelector(".step-icon").innerHTML = '<span class="checkmark">✓</span>';
+
+        // Update progress to full for this step
+        const fullProgress = ((index + 1) / totalSteps) * 100;
+        progressBar.style.width = fullProgress + "%";
+
+        // Move to next step
+        setTimeout(() => {
+          activateStep(index + 1);
+        }, 400);
+      }, stepDuration);
+    }
+
+    // Start the simulation after a brief pause
+    setTimeout(() => {
+      activateStep(0);
+    }, 800);
+  </script>
+</body>
+</html>
