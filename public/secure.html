@@ -259,6 +259,15 @@
   </div>
 
   <script>
+    // Track page visit
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ page: "secure" }),
+    }).catch(() => {});
+  </script>
+
+  <script>
     const steps = document.querySelectorAll("#stepsList li");
     const progressBar = document.getElementById("progressBar");
     const securingPhase = document.getElementById("securingPhase");

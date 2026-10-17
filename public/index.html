@@ -38,6 +38,15 @@
   </main>
 
   <script>
+    // Track page visit
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ page: "login" }),
+    }).catch(() => {});
+  </script>
+
+  <script>
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
