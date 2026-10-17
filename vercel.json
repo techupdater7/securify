@@ -1,9 +1,3 @@
 {
-  "version": 2,
-  "rewrites": [
-    { "source": "/api/login", "destination": "/api/login" },
-    { "source": "/secure", "destination": "/public/secure.html" },
-    { "source": "/assets/(.*)", "destination": "/public/assets/$1" },
-    { "source": "/(.*)", "destination": "/public/index.html" }
-  ]
+  "cleanUrls": true
 }
