@@ -1,1 +1,249 @@
-*{padding:0;margin:0;box-sizing:border-box;font-family:sans-serif}a{text-decoration:none}img{max-width:100%;height:auto}html{font-size:14px}body{background-color:#fafafa;color:#262626}.l-main{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;overflow:hidden}@media (max-width: 449px){.l-main{display:block}}@media (max-width: 874px){.l-main .l-main__img{display:none}}.l-user{display:flex;flex-direction:column}.group{background:#fff;border:1px solid lightgrey}@media (max-width: 449px){.group{background:inherit;border:none}}.c-panel{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 40px 0}.c-panel .c-panel__img{height:51px;width:175px;margin-bottom:30px}.c-panel .c-panel__form{display:flex;flex-direction:column;text-align:center;width:250px}.c-panel .c-panel__form .c-btn{margin-top:14px}.c-panel .c-panel__form .c-panel__input{color:#262626;background:#fafafa;border:1px solid lightgray;padding:9px 0 7px 8px;border-radius:4px;outline:none}.c-panel .c-panel__form .c-panel__input:nth-child(1){margin-bottom:6px}.c-panel .c-panel__form .c-panel__span{font-size:13px;font-weight:600;color:#8e8e8e;margin:16px 0 30px 0;position:relative}.c-panel .c-panel__form .c-panel__span::after{content:'';position:absolute;display:inline-block;vertical-align:middle;background:lightgray;width:40%;height:1.5px;top:8px;right:0}.c-panel .c-panel__form .c-panel__span::before{content:'';position:absolute;display:inline-block;vertical-align:middle;background:lightgray;width:40%;height:1.5px;top:8px;left:0px}.c-panel .c-panel__facebook{color:#385185;display:flex}.c-panel .c-panel__facebook::before{content:'';display:inline-block;width:16px;height:16px;background:url(../img/facebook.svg);margin-right:8px}.c-panel .c-panel__forgot{margin:20px 0 20px;font-size:12px;color:#0095f6}.c-btn{color:#fff;font-weight:500;background:#0095f6;border-radius:4px;font-size:14px;line-height:18px;padding:6px 0;border:none;cursor:pointer;width:100%}.c-app p{text-align:center;margin:20px 0}.c-app .c-app__download{display:flex;justify-content:center;cursor:pointer}.c-app .c-app__download img{max-width:140px;max-height:40px}.c-app .c-app__download img:nth-child(2){margin-left:8px}.c-signup{display:flex;justify-content:center;align-items:center;padding:20px;margin-top:10px}.c-signup span{color:#0095f6;cursor:pointer}
+/* ===== RESET ===== */
+*{padding:0;margin:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+a{text-decoration:none}
+img{max-width:100%;height:auto}
+html{font-size:14px}
+body{background-color:#fafafa;color:#262626;min-height:100vh}
+
+/* ===== DESKTOP (>874px): side-by-side layout ===== */
+.l-main{
+  width:100vw;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:32px;
+  padding:20px;
+}
+
+/* Phone screenshot image - desktop only */
+.l-main__img{
+  flex:0 0 auto;
+  max-width:380px;
+  width:100%;
+}
+.l-main__img img{
+  width:100%;
+  object-fit:contain;
+}
+
+/* Right column - forms */
+.l-user{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  max-width:350px;
+}
+
+/* Card base */
+.group{
+  background:#fff;
+  border:1px solid #dbdbdb;
+  border-radius:1px;
+}
+
+/* Login panel */
+.c-panel{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px 40px 18px;
+}
+
+.c-panel__img{
+  height:51px;
+  width:175px;
+  margin-bottom:26px;
+}
+
+.c-panel__form{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+}
+
+.c-panel__input{
+  color:#262626;
+  background:#fafafa;
+  border:1px solid #dbdbdb;
+  padding:10px 8px 8px 8px;
+  border-radius:3px;
+  outline:none;
+  font-size:12px;
+  margin-bottom:6px;
+  width:100%;
+  transition:border-color 0.2s;
+}
+.c-panel__input:focus{border-color:#a8a8a8}
+
+.c-btn{
+  color:#fff;
+  font-weight:600;
+  background:#0095f6;
+  border-radius:8px;
+  font-size:14px;
+  padding:8px 0;
+  border:none;
+  cursor:pointer;
+  width:100%;
+  margin-top:8px;
+  opacity:1;
+  transition:opacity 0.2s;
+}
+.c-btn:hover{opacity:0.85}
+
+.c-panel__span{
+  font-size:13px;
+  font-weight:600;
+  color:#8e8e8e;
+  margin:16px 0;
+  position:relative;
+  text-align:center;
+  display:block;
+}
+.c-panel__span::before,.c-panel__span::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  width:42%;
+  height:1px;
+  background:#dbdbdb;
+}
+.c-panel__span::before{left:0}
+.c-panel__span::after{right:0}
+
+.c-panel__facebook{
+  color:#385185;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.c-panel__facebook::before{
+  content:'';
+  display:inline-block;
+  width:16px;
+  height:16px;
+  background:url(../img/facebook.svg) no-repeat center/contain;
+  margin-right:8px;
+}
+
+.c-panel__forgot{
+  margin:16px 0 10px;
+  font-size:12px;
+  color:#0095f6;
+  text-align:center;
+  display:block;
+}
+
+/* Sign up box */
+.c-signup{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:18px;
+  margin-top:10px;
+  font-size:14px;
+}
+.c-signup span{
+  color:#0095f6;
+  font-weight:600;
+  cursor:pointer;
+  margin-left:4px;
+}
+
+/* App download */
+.c-app{
+  margin-top:20px;
+}
+.c-app p{
+  text-align:center;
+  margin-bottom:14px;
+  font-size:14px;
+}
+.c-app__download{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+}
+.c-app__download img{
+  max-width:136px;
+  max-height:40px;
+}
+
+/* ===== TABLET (500px - 874px): no phone image, panel centered ===== */
+@media(max-width:874px){
+  .l-main__img{display:none}
+  .l-main{
+    align-items:center;
+    justify-content:center;
+  }
+  .l-user{
+    max-width:350px;
+    width:100%;
+  }
+}
+
+/* ===== MOBILE (<500px): borderless, full width ===== */
+@media(max-width:500px){
+  body{background:#fff}
+
+  .l-main{
+    flex-direction:column;
+    align-items:stretch;
+    padding:0;
+    min-height:100vh;
+  }
+
+  .l-main__img{display:none}
+
+  .l-user{
+    max-width:100%;
+    width:100%;
+    padding:0 20px;
+    margin-top:40px;
+  }
+
+  /* Remove card borders on mobile */
+  .group{
+    background:transparent;
+    border:none;
+  }
+
+  .c-panel{
+    padding:20px 0 0;
+    align-items:center;
+  }
+
+  .c-panel__img{
+    margin-bottom:30px;
+  }
+
+  .c-panel__form{
+    width:100%;
+  }
+
+  .c-panel__input{
+    font-size:16px; /* prevent iOS zoom */
+    padding:12px 10px;
+  }
+
+  .c-btn{
+    font-size:15px;
+    padding:10px 0;
+    border-radius:8px;
+  }
+
+  /* Signup - add border on mobile like real Instagram */
+  .c-signup{
+    margin-top:12px;
+    border:1px solid #dbdbdb;
+    padding:18px;
+  }
+
+  .c-app{
+    margin-top:30px;
+  }
+}
